@@ -2,20 +2,18 @@ import datetime
 
 class Field:
     """Base descriptor for model fields."""
-    def __init__(self, primary_key=False, unique=False, nullable=False, default=None):
+    def __init__(self, primary_key=False, unique=False, nullable=False, default=None, column=None):
         self.primary_key = primary_key
         self.unique = unique
         self.nullable = nullable
         self.default = default
+        self.column = column
         self.name = None
-        self.column = None
     
     def __set_name__(self, owner, name):
         self.name = name
         if self.column is None:
-            
-        self.column = ''.join(['_' + c.lower() if c.isupper() else c for c in column]).lstrip('_')
-    
+            self.column = self._generate_column_name(name)    
 
     def __get__(self, instance, owner):
         if instnace is None:
