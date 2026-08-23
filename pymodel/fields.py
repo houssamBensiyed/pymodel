@@ -40,6 +40,9 @@ class Field:
                 raise ValueError(f"Field '{self.name}' cannot be None")
             return None
 
+        self._validate_type(value)
+        return value
+
     def _validate_type(self, value):
         """Override in subclasses to enforce specific types."""
         pass
