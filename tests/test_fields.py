@@ -60,3 +60,13 @@ def test_nullable_and_delete():
     with pytest.raises(AttributeError) as exc_info:
         del obj.name
     assert "Cannot delete non-nullable field" in str(exc_info.value)
+
+def test_set_none_on_non_nullable_without_default():
+    obj = DummyModel()
+    with pytest.raises(ValueError) as exc_info:
+        obj.name = None
+    assert "cannot be None" in str(exc_info.value)
+
+def test_set_name_and_column_derivation():
+    assert DummyModel.age.name == "age"
+    assert DummyModel.age.column == "age"
