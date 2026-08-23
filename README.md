@@ -1,17 +1,16 @@
 <div align="center">
 
-```
-██████╗ ██╗   ██╗███╗   ███╗ ██████╗ ██████╗ ███████╗██╗
-██╔══██╗╚██╗ ██╔╝████╗ ████║██╔═══██╗██╔══██╗██╔════╝██║
-██████╔╝ ╚████╔╝ ██╔████╔██║██║   ██║██║  ██║█████╗  ██║
-██╔═══╝   ╚██╔╝  ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  ██║
+<pre>
+██████╗ ██╗   ██╗███╗   ███╗ ██████╗ ██████╗ ███████╗██╗     
+██╔══██╗╚██╗ ██╔╝████╗ ████║██╔═══██╗██╔══██╗██╔════╝██║     
+██████╔╝ ╚████╔╝ ██╔████╔██║██║   ██║██║  ██║█████╗  ██║     
+██╔═══╝   ╚██╔╝  ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  ██║     
 ██║        ██║   ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗███████╗
 ╚═╝        ╚═╝   ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝
-```
+</pre>
 
-**A declarative mini-ORM framework — built from scratch to master Python metaprogramming.**
+**A declarative mini-ORM framework - built from scratch to master Python metaprogramming.**
 
-[![CI](https://github.com/YOUR_USERNAME/pymodel/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/pymodel/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -43,7 +42,7 @@
 
 > _"Metaclasses are deeper magic than 99% of users should ever worry about.
 > If you wonder whether you need them, you don't."_
-> — **Tim Peters** · _this project is about becoming the 1%_ 🧙
+> - **Tim Peters** · _this project is about becoming the 1%_ 🧙
 
 </div>
 
@@ -51,7 +50,7 @@
 
 ## 🧭 About
 
-**PyModel** is a miniature ORM in the spirit of **Django ORM**, **SQLAlchemy**, and **Peewee** —
+**PyModel** is a miniature ORM in the spirit of **Django ORM**, **SQLAlchemy**, and **Peewee** -
 implemented with **zero dependencies** and no hidden magic.
 
 It exists because a real ORM is _the_ canonical use case for Python metaprogramming.
@@ -67,12 +66,12 @@ class User(Model):
 …you must intercept class creation, harvest descriptors, track instance state,
 lazily load relations, introspect signatures, generate specialized methods, and
 accept third-party field types. Every phase of this project maps to one core
-language concept — nothing is forced.
+language concept - nothing is forced.
 
 |                     | PyModel                                          |
 | ------------------- | ------------------------------------------------ |
 | 🎯 **Purpose**      | Learn metaprogramming by building the real thing |
-| 📦 **Dependencies** | `0` — pure standard library                      |
+| 📦 **Dependencies** | `0` - pure standard library                      |
 | 🐍 **Python**       | 3.10+                                            |
 | 📏 **Size**         | ~1,000 LOC (readable in an afternoon)            |
 
@@ -83,14 +82,14 @@ language concept — nothing is forced.
 | Feature                     | Description                                                                         |
 | --------------------------- | ----------------------------------------------------------------------------------- |
 | 🧬 **Declarative models**   | Django-style class definitions via descriptors + a custom metaclass                 |
-| 🐌 **Lazy relations**       | `post.author` fetches from the DB on first access, then caches — zero extra queries |
+| 🐌 **Lazy relations**       | `post.author` fetches from the DB on first access, then caches - zero extra queries |
 | 🩹 **Dirty tracking**       | `save()` emits `UPDATE` for changed columns _only_                                  |
 | 🪞 **Identity map**         | Same primary key → same object. Always.                                             |
-| ⌨️ **Type-hint models**     | `id: int` — annotations become fields automatically, no `Field()` calls             |
+| ⌨️ **Type-hint models**     | `id: int` - annotations become fields automatically, no `Field()` calls             |
 | 🔌 **Pluggable fields**     | Register _any_ third-party class as a field via `FieldLikeABC.register()`           |
-| ⚡ **Generated methods**    | `to_dict` / `from_row` compiled per-class with `exec()` — specialized, not generic  |
-| 🧰 **Generic repositories** | `Repository[Post]()` — type-safe querying sugar via `__class_getitem__`             |
-| 🔍 **Schema introspection** | Auto-generated `__schema__` derived purely via `inspect` — no manual bookkeeping    |
+| ⚡ **Generated methods**    | `to_dict` / `from_row` compiled per-class with `exec()` - specialized, not generic  |
+| 🧰 **Generic repositories** | `Repository[Post]()` - type-safe querying sugar via `__class_getitem__`             |
+| 🔍 **Schema introspection** | Auto-generated `__schema__` derived purely via `inspect` - no manual bookkeeping    |
 
 ---
 
@@ -143,9 +142,9 @@ class Author(Model):
     bio = TextField(nullable=True)
     joined = DateTimeField(default=datetime.now)
 
-Author(name=42)        # ❌ TypeError — descriptors validate on assignment
+Author(name=42)        # ❌ TypeError - descriptors validate on assignment
 del author.bio         # ✅ nullable → sets None
-del author.name        # ❌ raises — non-nullable
+del author.name        # ❌ raises - non-nullable
 ```
 
 </details>
@@ -164,13 +163,13 @@ class Post(Model):
 post = Repository[Post]().get(1)
 
 print(post.author.name)   # ← 1 DB call (lazy fetch via __getattr__)
-print(post.author.name)   # ← 0 DB calls (cached — descriptor shadowed)
+print(post.author.name)   # ← 0 DB calls (cached - descriptor shadowed)
 ```
 
 </details>
 
 <details>
-<summary><b>🩹 Dirty tracking — surgical updates</b></summary>
+<summary><b>🩹 Dirty tracking - surgical updates</b></summary>
 
 ```python
 post.views += 1
@@ -198,7 +197,7 @@ assert a is b             # ✅ same row → same object, second __init__ short-
 class Todo(Model):
     id: int
     text: str
-    done: bool = False        # no Field() calls — annotations do the work
+    done: bool = False        # no Field() calls - annotations do the work
 
 print(Todo.__schema__)
 ```
@@ -258,15 +257,15 @@ Every phase maps 1:1 to a core language concept:
 
 | Phase | Concept                                                                | Where it lives  | Status |
 | :---: | ---------------------------------------------------------------------- | --------------- | :----: |
-|   1   | **Descriptors** — `__get__`, `__set__`, `__delete__`, `__set_name__`   | `fields.py`     |   🔜   |
-|   2   | **Metaclasses** — custom `type` subclass, `__new__`                    | `metaclass.py`  |   🔜   |
-|   3   | **`__init_subclass__`** — registry & validation hooks                  | `model.py`      |   🔜   |
-|   4   | **`__new__` vs `__init__`** — identity map pattern                     | `model.py`      |   🔜   |
-|   5   | **Dynamic attributes** — `__getattr__` / `__setattr__` / `__delattr__` | `model.py`      |   🔜   |
-|   6   | **`inspect` module** — annotations, signatures, introspection          | `schema.py`     |   🔜   |
-|   7   | **Code generation** — `exec()` / `eval()` with sanitization            | `metaclass.py`  |   🔜   |
-|   8   | **ABCs & `register()`** — virtual subclass pluggability                | `fieldlike.py`  |   🔜   |
-|   9   | **`__class_getitem__`** — generic-style typed repositories             | `repository.py` |   🔜   |
+|   1   | **Descriptors** - `__get__`, `__set__`, `__delete__`, `__set_name__`   | `fields.py`     |   🔜   |
+|   2   | **Metaclasses** - custom `type` subclass, `__new__`                    | `metaclass.py`  |   🔜   |
+|   3   | **`__init_subclass__`** - registry & validation hooks                  | `model.py`      |   🔜   |
+|   4   | **`__new__` vs `__init__`** - identity map pattern                     | `model.py`      |   🔜   |
+|   5   | **Dynamic attributes** - `__getattr__` / `__setattr__` / `__delattr__` | `model.py`      |   🔜   |
+|   6   | **`inspect` module** - annotations, signatures, introspection          | `schema.py`     |   🔜   |
+|   7   | **Code generation** - `exec()` / `eval()` with sanitization            | `metaclass.py`  |   🔜   |
+|   8   | **ABCs & `register()`** - virtual subclass pluggability                | `fieldlike.py`  |   🔜   |
+|   9   | **`__class_getitem__`** - generic-style typed repositories             | `repository.py` |   🔜   |
 
 ---
 
@@ -363,30 +362,30 @@ flowchart TB
 <details>
 <summary><b>🗺 Full ASCII diagram (original design)</b></summary>
 
-```
-            ┌──────────────────────────────────────┐
-            │            ModelMeta (metaclass)      │  Phase 2, 7
-            │  - collects Field descriptors         │
-            │  - inherits base fields               │
-            │  - exec() generates helpers           │
-            └──────────────┬───────────────────────┘
-                           │ creates
-                           ▼
-    ┌──────────────────────────────────────────────┐
-    │              Model (base class)               │
-    │  __new__  -> row cache / identity map         │  Phase 4
-    │  __init__ -> populate from kwargs             │
-    │  __getattr__  -> lazy FK load                 │  Phase 5
-    │  __setattr__  -> dirty tracking               │
-    │  __init_subclass__ -> registry hook           │  Phase 3
-    └──────────────────────────────────────────────┘
-                           │
-    ┌──────────────────────┼───────────────────────┐
-    ▼                      ▼                       ▼
-Field (descriptor)   ForeignKey(desc)       FieldLikeABC
-__get__/__set__/     lazy loader            ABC + register()
-__delete__/__set_name__                     Phase 8
-Phase 1
+```text
+            ┌────────────────────────────────────────┐
+            │         ModelMeta (metaclass)          │  Phase 2, 7
+            │  - collects Field descriptors          │
+            │  - inherits base fields                │
+            │  - exec() generates helpers            │
+            └───────────────────┬────────────────────┘
+                                │ creates
+                                ▼
+        ┌────────────────────────────────────────────┐
+        │             Model (base class)             │
+        │  __new__           -> identity map         │  Phase 4
+        │  __init__          -> populate from kwargs │
+        │  __getattr__       -> lazy FK load         │  Phase 5
+        │  __setattr__       -> dirty tracking       │
+        │  __init_subclass__ -> registry hook        │  Phase 3
+        └───────────────────────┬────────────────────┘
+                                │
+        ┌───────────────────────┼───────────────────────┐
+        ▼                       ▼                       ▼
+  Field (descriptor)      ForeignKey (desc)       FieldLikeABC
+  __get__ / __set__       lazy loader             ABC + register()
+  __delete__ / set_name                           Phase 8
+  Phase 1
 ```
 
 </details>
@@ -399,12 +398,12 @@ Phase 1
 pymodel/
 ├── 📂 pymodel/
 │   ├── __init__.py          # 🚪 Public API re-exports
-│   ├── fields.py            # Phase 1 — Descriptor-based fields
-│   ├── metaclass.py         # Phase 2 + 7 — ModelMeta & codegen
-│   ├── model.py             # Phase 3 + 4 + 5 — Model base class
-│   ├── schema.py            # Phase 6 — inspect-driven schema
-│   ├── fieldlike.py         # Phase 8 — FieldLike ABC & register()
-│   ├── repository.py        # Phase 9 — Generic Repository / QuerySet
+│   ├── fields.py            # Phase 1 - Descriptor-based fields
+│   ├── metaclass.py         # Phase 2 + 7 - ModelMeta & codegen
+│   ├── model.py             # Phase 3 + 4 + 5 - Model base class
+│   ├── schema.py            # Phase 6 - inspect-driven schema
+│   ├── fieldlike.py         # Phase 8 - FieldLike ABC & register()
+│   ├── repository.py        # Phase 9 - Generic Repository / QuerySet
 │   └── db.py                # 🗄️  Stub in-memory backend
 ├── 📂 tests/                # 🧪 One test module per phase
 │   ├── test_phase1_descriptors.py
@@ -422,23 +421,23 @@ pymodel/
 
 ## 📋 Roadmap
 
-- [ ] Phase 1 — Field descriptors & validation
-- [ ] Phase 2 — `ModelMeta` field collection & inheritance
-- [ ] Phase 3 — `__init_subclass__` global registry
-- [ ] Phase 4 — Identity map (`__new__` vs `__init__`)
-- [ ] Phase 5 — Lazy relations & dirty tracking
-- [ ] Phase 6 — `inspect`-driven auto-schema & type-hint fields
-- [ ] Phase 7 — `exec()` code generation (sanitized)
-- [ ] Phase 8 — ABC registration for third-party fields
-- [ ] Phase 9 — `__class_getitem__` generic repositories
-- [ ] 🏁 Final integration test — the blog app
+- [ ] Phase 1 - Field descriptors & validation
+- [ ] Phase 2 - `ModelMeta` field collection & inheritance
+- [ ] Phase 3 - `__init_subclass__` global registry
+- [ ] Phase 4 - Identity map (`__new__` vs `__init__`)
+- [ ] Phase 5 - Lazy relations & dirty tracking
+- [ ] Phase 6 - `inspect`-driven auto-schema & type-hint fields
+- [ ] Phase 7 - `exec()` code generation (sanitized)
+- [ ] Phase 8 - ABC registration for third-party fields
+- [ ] Phase 9 - `__class_getitem__` generic repositories
+- [ ] 🏁 Final integration test - the blog app
 
 <details>
 <summary><b>🚀 Stretch goals</b></summary>
 
 - [ ] `__slots__` generation in the metaclass (lean instances)
-- [ ] `@cached_query` decorator — compile filters into closures via safe AST validation
-- [ ] Migration diffing — compare `__schema__` dicts, emit SQL DDL
+- [ ] `@cached_query` decorator - compile filters into closures via safe AST validation
+- [ ] Migration diffing - compare `__schema__` dicts, emit SQL DDL
 - [ ] `__mro_entries__` for advanced generic behavior
 - [ ] Auto-registration of validators discovered via `inspect.getmembers`
 
@@ -448,14 +447,14 @@ pymodel/
 
 ## 📊 Benchmarks
 
-Phase 7 generates _specialized_ methods per model class — no generic loops:
+Phase 7 generates _specialized_ methods per model class - no generic loops:
 
 | Operation (10 fields) | Naive `getattr` loop | `exec()`-generated |  Speedup  |
 | --------------------- | :------------------: | :----------------: | :-------: |
 | `to_dict()`           |       `4.2 µs`       |      `1.1 µs`      | **~3.8×** |
 | `from_row()`          |       `5.0 µs`       |      `1.3 µs`      | **~3.8×** |
 
-> ℹ️ Illustrative figures — reproduce with `python -m benchmarks.to_dict`.
+> ℹ️ Illustrative figures - reproduce with `python -m benchmarks.to_dict`.
 > Verify specialization yourself: `dis.dis(Post.to_dict)` shows a flat attribute
 > sequence, not a loop.
 
@@ -486,7 +485,7 @@ PyModel uses dynamic code generation in **exactly one place** (Phase 7), and tre
 it with respect:
 
 - 🧼 **All identifiers sanitized** against `^[A-Za-z_][A-Za-z0-9_]*$` before codegen
-- 🚫 **No user strings** are ever interpolated into generated source — only field
+- 🚫 **No user strings** are ever interpolated into generated source - only field
   metadata harvested from class definitions
 - 📝 **Every use documented** in [`WARNINGS.md`](./WARNINGS.md) with rationale
 
@@ -510,10 +509,10 @@ An honest look at where PyModel sits:
 
 ## 📚 Learning Resources
 
-- 📖 [Descriptor HowTo Guide](https://docs.python.org/3/howto/descriptor.html) — official, essential
-- 📖 [Data model — metaclasses](https://docs.python.org/3/reference/datamodel.html#metaclasses)
-- 📖 [PEP 487](https://peps.python.org/pep-0487/) — `__set_name__` & `__init_subclass__`
-- 📖 [PEP 560](https://peps.python.org/pep-0560/) — `__class_getitem__` & generic types
+- 📖 [Descriptor HowTo Guide](https://docs.python.org/3/howto/descriptor.html) - official, essential
+- 📖 [Data model - metaclasses](https://docs.python.org/3/reference/datamodel.html#metaclasses)
+- 📖 [PEP 487](https://peps.python.org/pep-0487/) - `__set_name__` & `__init_subclass__`
+- 📖 [PEP 560](https://peps.python.org/pep-0560/) - `__class_getitem__` & generic types
 - 📖 [`inspect` module docs](https://docs.python.org/3/library/inspect.html)
 - 📖 [`abc` module docs](https://docs.python.org/3/library/abc.html)
 
@@ -521,12 +520,12 @@ An honest look at where PyModel sits:
 
 ## 🤝 Contributing
 
-Contributions are welcome — this is a learning project, so **good questions are as valuable as good code**.
+Contributions are welcome - this is a learning project, so **good questions are as valuable as good code**.
 
 1. 🍴 Fork & create a branch: `git checkout -b feat/phase-3-registry`
 2. ✅ Add tests for every behavior you add or change
 3. 🎨 Follow the style: `make fmt && make lint`
-4. 📝 Use [Conventional Commits](https://www.conventionalcommits.org/) — `feat:`, `fix:`, `docs:`, `test:`
+4. 📝 Use [Conventional Commits](https://www.conventionalcommits.org/) - `feat:`, `fix:`, `docs:`, `test:`
 5. 🔁 Open a Pull Request and describe _which phase/concept_ it touches
 
 <details>
@@ -544,7 +543,7 @@ make test
 
 ## 📄 License
 
-Distributed under the **MIT License** — see [`LICENSE`](./LICENSE) for details.
+Distributed under the **MIT License** - see [`LICENSE`](./LICENSE) for details.
 
 ---
 
@@ -555,7 +554,6 @@ Distributed under the **MIT License** — see [`LICENSE`](./LICENSE) for details
 ⭐ Star this repo if you learned something · [Report a bug](https://github.com/YOUR_USERNAME/pymodel/issues) · [Request a feature](https://github.com/YOUR_USERNAME/pymodel/issues)
 
 </div>
-````
 
 ---
 
@@ -565,6 +563,6 @@ Distributed under the **MIT License** — see [`LICENSE`](./LICENSE) for details
 - **CI badge** → only works once you add a `.github/workflows/ci.yml` workflow
 - **`LICENSE`** → add an actual MIT `LICENSE` file, or change the badge if you pick another license
 - **Roadmap statuses** → flip `- [ ]` to `- [x]` and `🔜` to `✅` as you complete phases
-- **Benchmarks** → the numbers are illustrative placeholders — replace with your real measurements
+- **Benchmarks** → the numbers are illustrative placeholders - replace with your real measurements
 
 Want a matching **`WARNINGS.md`** template, a **CI workflow file**, or a **pyproject.toml** to complete the set? Just ask. 🚀
