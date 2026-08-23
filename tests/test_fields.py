@@ -8,3 +8,22 @@ class DummyModel:
     is_active = BooleanField(default=True)
     created_at = DateTimeField(nullable=True)
 
+def test_set_valid_values():
+    obj = DummyModel()
+    obj.age = 25
+    obj.name = "Alice"
+    obj.is_active = False
+    obj.created_at = datetime.datetime.now()
+
+    assert obj.age == 25
+    assert obj.name == "Alice"
+    assert obj.is_active is False
+
+
+def test_default_values():
+    obj = DumyModel()
+
+    assert obj.age == 18
+    assert obj.is_active is True
+
+
