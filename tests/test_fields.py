@@ -49,3 +49,14 @@ def test_string_max_length():
         obj.name = "A" * 51
     assert "exceeds max_length" in str(exc_info.value)
 
+def test_nullable_and_delete():
+    obj = DummyModel()
+    obj.age = 30
+    assert obj.age == 30
+
+    del obj.age
+    assert obj.age is None
+
+    with pytest.raises(AttributeError) as exc_info:
+        del obj.name
+    assert "Cannot delete non-nullable field" in str(exc_info.value)
