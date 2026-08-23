@@ -16,7 +16,7 @@ class Field:
             self.column = self._generate_column_name(name)    
 
     def __get__(self, instance, owner):
-        if instnace is None:
+        if instance is None:
             return self
         
         return instance.__dict__.get(self.name, self.default)
@@ -49,7 +49,7 @@ class Field:
     
     def _generate_column_name(self, name):
         """Dedicated method for formatting database column name."""
-        return ''.join(['_' + c.lower() if c.upper() else c for c in name]).lstrip('_')
+        return ''.join(['_' + c.lower() if c.isupper() else c for c in name]).lstrip('_')
 
 class IntegerField(Field):
     def _validate_type(self, value):

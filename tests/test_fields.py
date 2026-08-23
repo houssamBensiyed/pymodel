@@ -45,6 +45,7 @@ def test_bool_not_accepted_as_int():
         obj.age = True
 
 def test_string_max_length():
+    obj = DummyModel()
     with pytest.raises(ValueError) as exc_info:
         obj.name = "A" * 51
     assert "exceeds max_length" in str(exc_info.value)
