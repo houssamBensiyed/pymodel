@@ -45,9 +45,3 @@ class ModelMeta(type):
                 )
 
         return cls
-
-
-class Model(metaclass=ModelMeta):
-    """Base class for all ORM models."""
-
-    pass
